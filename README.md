@@ -77,7 +77,7 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement receive function in Notification controller.`
     -   [x] Commit: `Implement list_messages function in Notification service.`
     -   [x] Commit: `Implement list function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
+    -   [x] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
 
 ## Your Reflections
 This is the place for you to write reflections:
@@ -90,3 +90,8 @@ This is the place for you to write reflections:
 2. Rust tidak mengizinkan mutasi langsung pada variabel static karena dapat menyebabkan race condition dalam lingkungan multi-threaded. Berbeda dengan Java, di mana variabel static bisa dimodifikasi melalui metode static, Rust menerapkan aturan kepemilikan dan borrowing yang ketat untuk mencegah kondisi balapan data. Oleh karena itu, library `lazy_static` digunakan untuk menginisialisasi variabel static secara aman, memastikan bahwa aksesnya sesuai dengan aturan thread safety Rust.
 
 #### Reflection Subscriber-2
+1. Saya telah melihat beberapa file lain dalam aplikasi publisher dan receiver. Dari yang saya pahami, `src/lib.rs` berfungsi untuk me-load file `.env` jika tersedia, sehingga dapat mengganti pengaturan default yang telah didefinisikan sebelumnya. Selain itu, `src/lib.rs` juga mendeklarasikan tipe `Result<T, E>`, yang merupakan modifikasi dari `std::result::Result<T, E>` dengan `E` sebagai tipe error custom (`Custom<Json<ErrorResponse>>`). Ada juga fungsi `compose_error_message`, yang digunakan untuk membuat pesan kesalahan dalam format yang sesuai. Secara keseluruhan, file ini berisi tipe dan fungsi pendukung yang digunakan di seluruh aplikasi.
+
+2. Dengan pola Observer, menambahkan instance `Subscriber` baru menjadi lebih mudah karena cukup mengatur port yang berbeda, tanpa perlu konfigurasi tambahan pada aplikasi Publisher. Setelah port dikonfigurasi, `Subscriber` dapat langsung subscribe ke `product_type` yang diinginkan. Namun, jika menambahkan lebih dari satu instance aplikasi Main, domain dari instance baru tersebut harus ditambahkan ke konfigurasi aplikasi Receiver. Selain itu, `Subscriber` juga harus melakukan subscribe ke instance baru tersebut agar dapat menerima notifikasi. Untuk mempermudah hal ini, implementasi `subscribe` dan `unsubscribe` di Receiver perlu diperbarui agar dapat mengirim permintaan ke semua domain Main app, bukan hanya satu  
+
+3. Saya belum mencoba membuat Test sendiri di Postman, tetapi dari Test yang sudah ada dalam koleksi, tampaknya fitur Test di Postman bekerja seperti pengujian otomatis pada umumnya. Fitur ini bisa sangat berguna dalam tugas kelompok saya karena memungkinkan pembuatan Test untuk semua API endpoint tanpa harus menulis kode pengujian secara manual.
