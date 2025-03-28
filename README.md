@@ -66,7 +66,7 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Create Notification database and Notification repository struct skeleton.`
     -   [x] Commit: `Implement add function in Notification repository.`
     -   [x] Commit: `Implement list_all_as_string function in Notification repository.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
+    -   [x] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
 -   **STAGE 3: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -85,5 +85,8 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. Dalam tutorial ini, kita menggunakan `RwLock<>` untuk menyinkronkan akses ke vektor `Notification` karena memungkinkan beberapa thread membaca data secara bersamaan. Jika kita menggunakan `Mutex<>`, hanya satu thread yang dapat mengakses vektor dalam satu waktu, baik untuk membaca maupun menulis, yang dapat menyebabkan bottleneck. Dengan `RwLock<>`, banyak thread dapat membaca secara paralel, sementara penulisan tetap dibatasi hanya satu thread dalam satu waktu, sehingga meningkatkan efisiensi aplikasi.  
+
+2. Rust tidak mengizinkan mutasi langsung pada variabel static karena dapat menyebabkan race condition dalam lingkungan multi-threaded. Berbeda dengan Java, di mana variabel static bisa dimodifikasi melalui metode static, Rust menerapkan aturan kepemilikan dan borrowing yang ketat untuk mencegah kondisi balapan data. Oleh karena itu, library `lazy_static` digunakan untuk menginisialisasi variabel static secara aman, memastikan bahwa aksesnya sesuai dengan aturan thread safety Rust.
 
 #### Reflection Subscriber-2
